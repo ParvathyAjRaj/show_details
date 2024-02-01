@@ -1,24 +1,26 @@
 import './App.css';
 import { Container,Row,Col,Button} from 'react-bootstrap';
 import ShowList from './components/ShowList';
+import { useState } from 'react';
 
 function App(){
-  const base_url = 'https://api.tvmaze.com/search/shows?q=all';
+
   return(
     <div>
       <Container>
         <Row>
-          <h1>Welcome to the Show Lists</h1>
+          <Col>
+          <p>Welcome to the Show Lists</p>
+          </Col>
         </Row>
         <Row>
-          <ShowList/>
+          <Col>
+            <ShowList/> 
+          </Col>
         </Row>
       </Container>
     </div>
   )
 }
-  ;
-
-
 
 export default App
