@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./ShowList.css"
+import { FormCheck } from "react-bootstrap";
 
 let show_more_details = {"isShowMore" : false, "sendList" : null,"show_key" : null}
 let summary = '';
 let key;
 let name = '';
+let rating;
 const baseURL = 'https://api.tvmaze.com/search/shows?q=all';
 
 function ShowList(){
@@ -38,7 +41,8 @@ function ShowList(){
                 "name": each_show_details.show.name,
                 "summary":each_show_details.show.summary,
                 "url":each_show_details.show.url,
-                "image":each_show_details.show.image ? each_show_details.show.image.medium : ""
+                "image":each_show_details.show.image ? each_show_details.show.image.medium : "",
+                "rating":each_show_details.show.rating.average
             };
             prev_list.push(req_details_dict);
         })
@@ -55,6 +59,7 @@ function ShowList(){
         summary = show_more_details["sendList"][0]["summary"];
         key = show_more_details["show_key"];
         name = show_more_details["sendList"][0]["name"];
+        rating = show_more_details["sendList"][0]["rating"];
     }
 
     function handleBooking(name){
@@ -68,42 +73,71 @@ function ShowList(){
 
 
     return(
-    <div>
+    <div  className="main-page">
         <div>
             {isDisplay && error === null? 
-            <ul>
-                {required_show_details.map((each_show) => 
-                    <li>
-                        <h1>{each_show.name}</h1>
-                        <a href={each_show.url}>{each_show.url}</a>
-                        <br></br>
-                        <img src={each_show.image} width="20%" height="20%"></img>
-                        <br></br>
-                        <button key={each_show.key}  onClick={() => {handleShowMore(each_show.key)}}>Show more</button>
-                    </li>)}
-            </ul>
-            :
             <div>
-                <button onClick={handleBackToList}>Back</button>
-                <h1>Here is the details:</h1>
-                <ul>
-                    <li>{summary}</li>
-                    <button onClick={() => {handleBooking(name)}}>Book Ticket</button>
-                    {!isSummaryDisplay ? 
-                    <div>
-                        <h2>Book "{name}" movie</h2>
-                        <form>
+                {required_show_details.map((each_show) => 
+                        <div className="movie-list">
+                            <h2 className="title">{each_show.name} <a href={each_show.url}>↗️</a></h2>
+                            <div className="movie-image">
+                                <img src={each_show.image} width="20%" height="20%"></img>
+                            </div>
+                            <div className="show-div">
+                                <button onClick={() => {handleShowMore(each_show.key)}} className="button">Show more</button>
+                            </div>
+                        </div>)
+                }
+            </div>
+
+            :
+
+            <div>
+                <button onClick={handleBackToList} className="button">Back</button>
+                <h1 className="title">{name} </h1>
+                <h2 className="title">Rating : {rating} {rating === null ? "no rating available" : rating < 5 ? "👎" : "👍"}</h2>
+                <div className="summary">
+                    {summary}
+                </div>
+                <div className="show-div">
+                    <button onClick={() => {handleBooking(name)}} className="button">Book Ticket</button>
+                </div>
+                {!isSummaryDisplay ? 
+                <div>
+                    <h2 className="title">Book "{name}" movie</h2>
+                    <form className="form-fields">
+                        <div className="name-field">
                             <label>Movie name</label>
                             <input value={name}></input>
+                        </div>
+                        <div className="date-field">
                             <label for="movie-date">Date</label>
-                            <input id="movie-date"></input>
+                            <input id="movie-date" placeholder="DD/MM/YYYY"></input>
+                        </div>
+                        <div className="seat-field">
                             <label>No. of seats</label>
                             <input type="number"></input>
-                            <button>Ok</button>
-                        </form>
-                    </div>
-                     : ''}
-                </ul>
+                        </div>
+                        <div className="snack-field">
+                            <label>Snacks and Drinks</label>
+                            <div>
+                                <input type="checkbox" id="snack1" name="snack1" value="popcorn"></input>
+                                <label>Popcorn</label>
+                                <input type="checkbox" id="snack2" name="snack2" value="fries"></input>
+                                <label>Fries</label>
+                                <input type="checkbox" id="drinks1" name="drinks1" value="Coco-Cola"></input>
+                                <label>Coco Cola</label>
+                                <input type="checkbox" id="drinks2" name="drinks2" value="Pepsi"></input>
+                                <label>Pepsi</label>
+                            </div>
+                        </div>
+                        <div className="show-div">
+                            <button className="button">Submit</button>
+                        </div>                        
+                    </form>
+                </div>
+                    : ''}
+                
             </div>
             }
         </div>

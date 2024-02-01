@@ -1,17 +1,14 @@
 import './App.css';
 import { Container,Row,Col,Button} from 'react-bootstrap';
 import ShowList from './components/ShowList';
-import { useState } from 'react';
 
 function App(){
 
   return(
     <div>
-      <Container>
-        <Row>
-          <Col>
-          <p>Welcome to the Show Lists</p>
-          </Col>
+      <Container className='container'>
+        <Row className='mt-2 heading'>
+          <h1>Welcome to ShowTime.com</h1>
         </Row>
         <Row>
           <Col>
