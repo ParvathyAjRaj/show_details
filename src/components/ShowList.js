@@ -76,17 +76,24 @@ function ShowList(){
     <div  className="main-page">
         <div>
             {isDisplay && error === null? 
-            <div>
+            <div className="movie-list">
                 {required_show_details.map((each_show) => 
-                        <div className="movie-list">
-                            <h2 className="title">{each_show.name} <a href={each_show.url}>↗️</a></h2>
+                        <div className="each-movie-details">
+                            <h2 className="title">{each_show.name}
+                            <span class="badge rounded-pill">
+                                <a href={each_show.url}>↗</a>
+                                
+                            </span>
+                            </h2>
+                            
                             <div className="movie-image">
-                                <img src={each_show.image} width="20%" height="20%"></img>
+                                <img src={each_show.image} width="100%" height="50%" className="each-image"></img>
                             </div>
                             <div className="show-div">
                                 <button onClick={() => {handleShowMore(each_show.key)}} className="button">Show more</button>
                             </div>
-                        </div>)
+                        </div>
+                        )
                 }
             </div>
 

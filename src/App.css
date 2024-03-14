@@ -2,16 +2,16 @@
   text-align: center;
 }
 
-.container{
-  background: rgb(34,193,195);
-  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,0.29659786277792366) 100%);
+#app-name{
+  text-shadow:2px 2px #9c9ea1;
+  color:white;
 }
 
 .heading{
   display: flex;
   justify-content: center;
   align-items: center;
-  color:brown
+  color:white
 }
 
 @media (max-width : 800px){

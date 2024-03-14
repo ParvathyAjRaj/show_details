@@ -7,8 +7,8 @@ function App(){
   return(
     <div>
       <Container className='container'>
-        <Row className='mt-2 heading'>
-          <h1>Welcome to ShowTime.com</h1>
+        <Row className='mt-2 text-center' id='app-name'>
+          <h1>Showflix</h1>
         </Row>
         <Row>
           <Col>
